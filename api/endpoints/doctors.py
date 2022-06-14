@@ -5,6 +5,7 @@ import models
 import schemas
 from fastapi import APIRouter, HTTPException, Path, Query
 from pydantic import condecimal
+from starlette import status
 
 from core.config import Language
 from core.context import request_context
@@ -36,20 +37,13 @@ async def _process_instance(instance: models.Doctor) -> models.Doctor:
     return instance
 
 
-@router.post("/", response_model=schemas.Doctor)
+@router.post("/", response_model=schemas.Doctor, status_code=status.HTTP_201_CREATED)
 async def create_doctor(
     data: schemas.DoctorCreate,
 ) -> Any:
     # Basic validate
     await _validate_input_data(data)
-
-    obj_in = data.dict()
-    category_ids = obj_in.pop("category_ids")
-
-    instance: models.Doctor = await models.Doctor.create(obj_in, language=request_context.language)
-    for category_id in category_ids:
-        item = models.DoctorCategory(doctor_id=instance.id, category_id=category_id)
-        await item.save()
+    instance: models.Doctor = await models.Doctor.create(obj_in=data.dict(), language=request_context.language)
     return instance
 
 

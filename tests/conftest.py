@@ -23,21 +23,8 @@ def event_loop(request) -> asyncio.AbstractEventLoopPolicy:
 @pytest.fixture
 async def db() -> AsyncSession:
     connection = await engine.connect()
-    transaction = await connection.begin()
     session = AsyncSession(bind=connection, expire_on_commit=False, future=True)
-    await connection.begin_nested()
-
-    @event.listens_for(session.sync_session, "after_transaction_end")
-    def end_savepoint(session: Session, transaction: Transaction) -> None:
-        if connection.closed:
-            return
-        if not connection.in_nested_transaction():
-            connection.sync_connection.begin_nested()
-
     yield session
-
-    if session.in_transaction():
-        await transaction.rollback()
     await connection.close()
 
 

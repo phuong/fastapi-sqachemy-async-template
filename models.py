@@ -93,6 +93,15 @@ class Doctor(TimestampMixin, UUIDBaseModel):
         db_execute = await db.execute(query)
         return db_execute.scalars().all()
 
+    @classmethod
+    async def create(cls, obj_in: Dict[str, Any], language: Language) -> "Doctor":
+        category_ids = obj_in.pop("category_ids", [])
+        instance = await super().create(obj_in=obj_in, language=language)
+        for category_id in category_ids:
+            item = DoctorCategory(doctor_id=instance.id, category_id=category_id)
+            await item.save()
+        return instance
+
 
 class DoctorCategory(UUIDBaseModel):
     """

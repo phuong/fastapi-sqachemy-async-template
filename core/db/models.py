@@ -214,7 +214,6 @@ class BaseModel(Base):
         obj_trans[translation.fk] = instance.id
         instance_trans = translation.model(**obj_trans)
         await instance_trans.save()
-
         return await cls.get(id=instance.id, language=language)
 
 

@@ -12,6 +12,7 @@ pytestmark = pytest.mark.asyncio
 async def test_list_of_doctor(client: AsyncClient) -> None:
     response = await client.get("/api/doctors/")
     assert response.status_code == status.HTTP_200_OK
+    assert len(response.json()["items"]) > 0
 
 
 async def test_list_of_doctor_with_query_params(client: AsyncClient) -> None:
@@ -39,3 +40,10 @@ async def test_create_doctor_invalid_category(client: AsyncClient, doctor_data: 
     data = response.json()
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert "Category is not found" in data["detail"]
+
+
+async def test_create_doctor_valid_data(client: AsyncClient, doctor_data: Dict[str, Any]) -> None:
+    response = await client.post(f"/api/doctors/", json=doctor_data)
+    data = response.json()
+    assert response.status_code == status.HTTP_201_CREATED
+    assert data["phone_number"] == doctor_data["phone_number"]
