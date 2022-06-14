@@ -1,0 +1,98 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+# See https://resola-ai.getoutline.com/doc/setup-and-use-pre-commit-to-improve-code-quality-nU91hGOxnW for the doc
+
+fail_fast: false
+exclude: migrations|minifier|fixtures
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(templates\/)
+      - id: end-of-file-fixer
+        exclude: ^(templates\/)
+      - id: check-docstring-first
+      - id: debug-statements
+  - repo: https://github.com/asottile/seed-isort-config
+    rev: v2.2.0
+    hooks:
+      - id: seed-isort-config
+        files: ".py$"
+        stages: ["commit"]
+        language: python
+        types: [python]
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.5.3
+    hooks:
+      - id: isort
+        files: ".py$"
+        name: Sorting imports
+        stages: ["commit"]
+        exclude: ^(settings)
+        language: python
+        types: [python]
+        verbose: false
+        args: ["-w", "120", "--profile", "black"]
+
+  - repo: local
+    hooks:
+      - id: autoflake
+        files: ".py$"
+        name: Cleaning with autoflake
+        entry: autoflake
+        args:
+          - --in-place
+          - --remove-unused-variable
+          - --remove-all-unused-imports
+          - --ignore-init-module-imports
+        language: python
+        types: [python]
+        stages: ["commit"]
+        verbose: false
+
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        files: ".py$"
+        name: Formating with black
+        args: ["--quiet", "--line-length", "120"]
+        language: python
+        types: [python]
+        language_version: python3
+        stages: ["commit"]
+        verbose: false
+
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v2.6.0
+    hooks:
+      - id: pylint
+        files: ".py$"
+        name: Checking Pylint
+        language: python
+        args: ["--max-line-length=120"]
+        stages: ["commit"]
+        exclude: ^(\.git)|()|(common/tests)|(analytics/(sandbox|lib))
+  - repo: local
+    hooks:
+      - id: flake8
+        files: ".py$"
+        name: Checking Flake8
+        entry: flake8
+        args: ["--config", ".flake8"]
+        exclude: ^(\.git)|(migrations)
+        language: python
+        stages: ["commit"]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.812
+    hooks:
+      - id: mypy
+        files: ".py$"
+        name: Checking Mypy
+        entry: mypy
+        args: ["--config-file", "mypy.ini"]
+        exclude: ^(migrations)|(events-api)
+        language: python
+        stages: ["commit"]
+        additional_dependencies: ["pydantic", "sqlalchemy"]
