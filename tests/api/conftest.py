@@ -24,15 +24,6 @@ async def random_category(db_context) -> models.Category:
     """
     Return random category that existing in db
     """
-    areas = await models.Area.all()
-    return random.choice(areas)
-
-
-@pytest.fixture
-async def random_category(db_context) -> models.Category:
-    """
-    Return random category that existing in db
-    """
     category = await models.Category.all()
     return random.choice(category)
 
