@@ -21,9 +21,14 @@ async def test_list_of_doctor_with_query_params(client: AsyncClient) -> None:
     assert response.status_code == status.HTTP_200_OK
 
 
-async def test_doctor_not_existed(client: AsyncClient) -> None:
+async def test_retrieve_doctor_not_existed(client: AsyncClient) -> None:
     response = await client.get(f"/api/doctors/{uuid.uuid4()}")
     assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+async def test_retrieve_doctor(client: AsyncClient, random_doctor) -> None:
+    response = await client.get(f"/api/doctors/{random_doctor.id}")
+    assert response.status_code == status.HTTP_200_OK
 
 
 async def test_create_doctor_invalid_area(client: AsyncClient, doctor_data: Dict[str, Any]) -> None:

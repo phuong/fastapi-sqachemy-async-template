@@ -7,6 +7,8 @@ import pytest
 import schemas
 from scripts.initial import create_doctor_data
 
+from core.config import Language
+
 
 @pytest.fixture
 async def random_area(db_context) -> models.Area:
@@ -24,6 +26,22 @@ async def random_category(db_context) -> models.Category:
     """
     areas = await models.Area.all()
     return random.choice(areas)
+
+
+@pytest.fixture
+async def random_category(db_context) -> models.Category:
+    """
+    Return random category that existing in db
+    """
+    category = await models.Category.all()
+    return random.choice(category)
+
+
+@pytest.fixture
+async def random_doctor(db_context) -> models.Category:
+    # Default language of test is English
+    doctors = await models.Doctor.join_filter(language=Language.English)
+    return random.choice(doctors)
 
 
 @pytest.fixture

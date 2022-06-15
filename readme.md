@@ -103,8 +103,8 @@ bash tests.sh
 ```
 
 # 4. The results
-### Swagger UI:
+### Swagger API document:
 ![](docs/api.png)
 
-### API document (Redoc UI):
+### Redoc API document:
 ![](docs/redoc.png)
