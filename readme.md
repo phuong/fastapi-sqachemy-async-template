@@ -5,7 +5,7 @@
 - Typing is applied for 90% of code.
 - API test is applied for all endpoints.
 - API document (redoc) and Swagger UI area ready to use and will be updated on the go. API schema is compatible with openapi.
-- Initial data have been seeded.
+- Initial data of are, doctor, categorie have been seeded.
 - Good development tools to keep the quantity of code (pre-commit, isort, black, flake, mypy..)
 
 # 2. Q&A
@@ -36,17 +36,29 @@ The API backend becomes a bottleneck when the amount of users increases, so it n
 
 
 ### Any extra steps should be taken with caution when deploying your app to a production environment?
-- Change the database driver to mysql or postgresql, now I'm using sqlite to have a simple setup step.
+- Change the database driver to mysql or postgresql, now I'm using sqlite to have a simple setup step, it's not good for high
+traffic API endpoint.
 - Next one depends on where we want to deploy it.
-   - Need to build a docker image if we intend to use AWS Elastic container or Kuberneteses.
-   - Need to create a Procfile if we intend to use AWS Elastic balancing.
+   - Need to build a docker image if we intend to use AWS Elastic container or Kubernetes.
+   - Need to create a Procfile if we intend to use AWS Elastic beanstalk.
 
 ### Any assumptions you have made when you designed the data model and API schema?
-- Yes, I assuming that we'll have a frontend that support multiple languages or the product will be available on many countries. We only show the data that is available for that country.
+I assuming that we'll have a frontend that support multiple languages or the product will be available on many countries. We only show the data that is available for that country.
 For example:
 - My current language code is zh_CN, i'm looking for the doctors that are available for my country.
 - In the initial, Mr Mike is a doctor that only available for en_GB, so I could not see Mr Mike on the result.
 - Once someone in the backend add a translation of zh_CN for Mr Mike, he will available on my search result.
+
+Based on the UI, here's the models and relationships:
+- Ares (Office, link to an address)
+- Categories.
+- Doctors.
+- A doctor is belong to one area.
+- A doctor is belong to many categories.
+
+Because we also support multiple languages, so each model which needs to translate will have
+it own model_translation table.
+
 
 # 3. Time to try
 Required environment:
