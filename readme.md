@@ -89,3 +89,10 @@ This test runner will help create a test data, apply the migration, seed data an
 ```sh
 bash tests.sh
 ```
+
+# 4. The results
+### Swagger UI:
+![](docs/api.png)
+
+### API document (Redoc UI):
+![](docs/redoc.png)
