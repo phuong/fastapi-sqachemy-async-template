@@ -8,6 +8,24 @@
 - Initial data of are, doctor, categorie have been seeded.
 - Good development tools to keep the quantity of code (pre-commit, isort, black, flake, mypy..)
 
+### Project structure:
+Primary modules and files in this project
+```sh
+├── api                
+│   └── endpoints      # The api endpoints
+├── core               # Contains config and core module
+├── docs               
+├── migrations
+│   └── versions       
+├── models             # Models will be define here
+├── schemas            # Define the schema for data serializers
+├── scripts 
+└── tests
+    └── api            # Test for API endpoint
+├── tests.sh           # Bash script to run the test
+└── main.py            # The file where we start the app 
+```
+
 # 2. Q&A
 ### Why did you choose this framework?
 I have been working with FastAPI since 2 years ago. Initially, the project was not fully supported async as i expected (I/O was blocked by sqlachemy). Recently, sqlachemy supports async engine/connection. So on this occasion, I also want to build a template with FastAPI + sqachemy that fully supports async.
