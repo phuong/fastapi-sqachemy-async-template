@@ -108,3 +108,6 @@ bash tests.sh
 
 ### Redoc API document:
 ![](docs/redoc.png)
+
+### Test result:
+![](docs/tests.png)

@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseSettings
 from sqlalchemy.engine.url import URL
+import warnings
 
 
 class Language(str, enum.Enum):
@@ -46,3 +47,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+# Ingore unecessary warnings that happen with sqlite
+warnings.filterwarnings("ignore", ".*SELECT*")
+warnings.filterwarnings("ignore", ".*Dialect*")

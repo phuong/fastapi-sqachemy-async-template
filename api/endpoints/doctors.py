@@ -62,7 +62,7 @@ async def list_doctors(
     area_id: Optional[UUID] = Query(None, description="The area ID", example=schemas.UUID_EXAMPLE),
     category_ids: Optional[List[UUID]] = Query([], description="The list of category", example=[schemas.UUID_EXAMPLE]),
     price_min: condecimal(ge=0, le=100000) = Query(0, description="The min of price range", example=0),
-    price_max: condecimal(ge=0, le=100000) = Query(0, description="The max of price range", example=1000.0),
+    price_max: condecimal(ge=0, le=100000) = Query(0, description="The max of price range", example=5000),
 ) -> Any:
     language = request_context.language
 
