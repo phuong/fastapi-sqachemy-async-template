@@ -1,10 +1,12 @@
+"""
+Data IO between client and service
+"""
 import uuid
-from datetime import datetime, time
+from datetime import datetime
 from typing import List, Optional
 
 from faker import Faker
 from pydantic import BaseModel, Field, StrictBool, condecimal
-
 
 UUID_EXAMPLE = uuid.uuid4()
 fake: Faker = Faker(["zh_CN"])

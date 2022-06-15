@@ -1,12 +1,9 @@
-import asyncio
-import uuid
 from typing import Any, Dict, List, Optional
 
 import sqlalchemy as sa
 from sqlalchemy.orm import column_property
 
 from core.config import Language
-from core.db.deps import get_db
 from core.db.models import TimestampMixin, TranslationConfig, UUIDBaseModel
 from core.db.types import UUID
 
