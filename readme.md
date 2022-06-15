@@ -5,8 +5,8 @@
 - Typing is applied for 90% of code.
 - API test is applied for all endpoints.
 - API document (redoc) and Swagger UI area ready to use and will be updated on the go. API schema is compatible with openapi.
-- Initial data of are, doctor, categorie have been seeded.
-- Good development tools to keep the quantity of code (pre-commit, isort, black, flake, mypy..)
+- Initial data of are, doctor, category have been seeded.
+- Good development tools to keep the high quantity of coding convention (pre-commit, isort, black, flake, mypy..)
 
 ### Project structure:
 Primary modules and files in this project
