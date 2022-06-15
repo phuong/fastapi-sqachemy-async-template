@@ -50,11 +50,11 @@ For example:
 - Once someone in the backend add a translation of zh_CN for Mr Mike, he will available on my search result.
 
 Based on the UI, here's the models and relationships:
-- Ares (Office, link to an address)
-- Categories.
-- Doctors.
+- [Ares (Office, link to an address)](https://github.com/phuong/Phuong_Vu_Backend_Engineer_Technical_Assessment/blob/66cd15e430b01abffb454bc6840d80dcee79a3cc/models/__init__.py#L20)
+- [Categories](https://github.com/phuong/Phuong_Vu_Backend_Engineer_Technical_Assessment/blob/66cd15e430b01abffb454bc6840d80dcee79a3cc/models/__init__.py#L41).
+- [Doctors](https://github.com/phuong/Phuong_Vu_Backend_Engineer_Technical_Assessment/blob/66cd15e430b01abffb454bc6840d80dcee79a3cc/models/__init__.py#L59).
 - A doctor is belong to one area.
-- A doctor is belong to many categories.
+- [A doctor is belong to many categories](https://github.com/phuong/Phuong_Vu_Backend_Engineer_Technical_Assessment/blob/66cd15e430b01abffb454bc6840d80dcee79a3cc/models/__init__.py#L103).
 
 Because we also support multiple languages, so each model which needs to translate will have
 it own model_translation table.
